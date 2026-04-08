@@ -20,7 +20,7 @@ Um aplicativo premium e moderno para limpar sua aba de Spam do Gmail com um úni
 ## 🚀 Como Usar
 
 ### 1. Configurar o n8n
-- Importe o arquivo `n8n_workflow.json` para o seu n8n.
+- Importe o arquivo `n8n_workflow.json` (dentro da pasta `assets`) para o seu n8n.
 - Configure suas credenciais do Gmail nos nós correspondentes.
 - Ative o fluxo (Publish).
 - Copie a **Production URL** do nó Webhook.
@@ -33,11 +33,12 @@ Um aplicativo premium e moderno para limpar sua aba de Spam do Gmail com um úni
 ## 📁 Estrutura do Projeto
 
 ```text
-├── index.html          # Estrutura do site
-├── style.css           # Design e animações
-├── script.js           # Lógica de conexão com o n8n
-├── n8n_workflow.json    # O "cérebro" da automação para importar no n8n
-└── README.md           # Este arquivo
+├── index.html              # Estrutura do site
+├── assets/                 # Arquivos de suporte e configuração
+│   ├── style.css           # Design e animações
+│   ├── script.js           # Lógica de conexão com o n8n
+│   └── n8n_workflow.json   # O "cérebro" da automação para o n8n
+└── README.md               # Este arquivo
 ```
 
 ## 📄 Licença
