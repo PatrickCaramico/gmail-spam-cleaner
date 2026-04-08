@@ -1,0 +1,177 @@
+{
+  "name": "Gmail Spam Cleaner",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "limpar-spam",
+        "options": {}
+      },
+      "id": "e7c1f8d9-2c3b-4a5d-8e7f-1a2b3c4d5e6f",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "gmail-spam-cleaner"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "s1c2h3e4-d5u6-4l7e-8t9r-1i2g3g4e5r6",
+      "name": "Agendamento Automático",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {
+          "q": "label:spam"
+        }
+      },
+      "id": "a1b2c3d4-e5f6-4a5d-8e7f-1a2b3c4d5e6f",
+      "name": "Listar Spam",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        470,
+        300
+      ],
+      "credentials": {
+        "googleGmailOAuth2Api": {}
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "trash",
+        "messageId": "={{ $json.id }}"
+      },
+      "id": "f1e2d3c4-b5a6-4a5d-8e7f-1a2b3c4d5e6f",
+      "name": "Deletar Mensagem",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        690,
+        300
+      ],
+      "credentials": {
+        "googleGmailOAuth2Api": {}
+      }
+    },
+    {
+      "parameters": {
+        "mode": "wait"
+      },
+      "id": "c1d2e3f4-g5h6-4i7j-8k9l-1m2n3o4p5q6r",
+      "name": "Aguardar Exclusão",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        850,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d1c2b3a4-0e9f-4a5d-8e7f-1a2b3c4d5e6f",
+      "name": "Responder Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Listar Spam": {
+      "main": [
+        [
+          {
+            "node": "Deletar Mensagem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar Mensagem": {
+      "main": [
+        [
+          {
+            "node": "Aguardar Exclusão",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Aguardar Exclusão": {
+      "main": [
+        [
+          {
+            "node": "Responder Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Listar Spam",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Aguardar Exclusão",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendamento Automático": {
+      "main": [
+        [
+          {
+            "node": "Listar Spam",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Aguardar Exclusão",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "hash": "...",
+  "id": "..."
+}

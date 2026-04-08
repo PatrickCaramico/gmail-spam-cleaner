@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Spam Cleaner | Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Limpe sua aba de spam do Gmail com um único clique usando este aplicativo premium.">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <main class="container">
+        <div class="glass-card">
+            <header>
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="gmail-icon">
+                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1>Limpador de Spam</h1>
+                <p>Otimize sua caixa de entrada instantaneamente</p>
+            </header>
+
+            <div class="dashboard">
+                <div class="status-indicator" id="status-box">
+                    <span class="dot"></span>
+                    <span id="status-text">Pronto para limpar</span>
+                </div>
+                
+                <button id="btn-clear" class="btn-main">
+                    <span class="btn-text">LIMPAR ABA SPAM</span>
+                    <span class="loader"></span>
+                </button>
+                
+                <div class="webhook-config">
+                    <label for="webhook-url">URL do Webhook n8n</label>
+                    <input type="text" id="webhook-url" placeholder="https://seu-n8n.com/webhook/..." value="">
+                    <p class="hint">Insira a URL do seu webhook n8n para conectar o aplicativo.</p>
+                </div>
+            </div>
+
+            <footer class="card-footer">
+                <p>Seguro & Automatizado via n8n</p>
+            </footer>
+        </div>
+    </main>
+
+    <div id="toast" class="toast">Mensagem de feedback</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
